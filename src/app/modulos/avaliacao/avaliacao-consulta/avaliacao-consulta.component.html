@@ -1,0 +1,95 @@
+<div class="border-top">
+  <nav class="mt-2">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+      <li class="breadcrumb-item active">Listagem</li>
+    </ol>
+  </nav>
+  <div class="row mb-1">
+    <div class="col-md-12">
+      <h1 class="h4 border-left">
+        Conferência para Avaliação
+      </h1>
+    </div>
+  </div>
+  <div id="tbsd" class="table-responsive mb-2" *ngIf="avaliacoes">
+    <table class="table table-hover">
+      <thead>
+        <tr class="bg-success text-light">
+          <th>Dia</th>
+          <th>Horário</th>
+          <th>Senha</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let avaliacao of avaliacoes">
+          <td>{{ avaliacao.data | date: "dd/MM/yy"}}</td>
+          <td>{{ avaliacao.horario }}</td>
+          <td>{{ avaliacao.senha }}</td>
+          <td>
+            <button type="button" class="btn btn-outline-info btn-sm" (click)="detalharAvaliacao(avaliacao.id)" data-toggle="modal" data-target=".bd-example-modal-lg">
+              <i class="fas fa-thumbs-up"></i>&nbsp;Avaliar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Avaliação do Atendimento</h5>
+            <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </a>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex justify-content-center mt-2" *ngIf="msgNull">
+              <div class="alert alert-warning" role="alert" style="font-weight: bold;">
+                  Ainda não houve atendimento!
+              </div>
+          </div>
+          <form class="needs-validation" novalidate [formGroup]="avaliacaoForm" *ngIf="!msgNull">
+                <div class="apr">
+                    <p style="color: blue; font-weight: bold;">AGENDAMENTO</p>
+                    <p>IDENTIFICADOR: <span style="color: blue;">{{ identificador }}</span></p>
+                    <p>SENHA: <span style="color: red;">{{ senha }}</span></p>
+                    <p>DIA/HORÁRIO: {{ data | date: "dd/MM/yyyy" }}  -  {{ horario }}</p>
+                    <p>SERVIÇO: {{ servico }}</p>
+                    <p>DETALHAMENTO SERVIÇO: {{ detalhamentoServico }}</p>
+                    <p>UNIDADE: {{ unidade }}</p>
+                  </div>
+                  <div class="apr">
+                    <p style="color: blue; font-weight: bold;">USUÁRIO</p>
+                    <p>NOME: {{ nome }}</p>
+                    <p>CPF/CNPJ: {{ cpfCnpj }}</p>
+                  </div>
+                  <div class="apr">
+                    <p style="color: blue; font-weight: bold;">ATENDENTE</p>
+                    <p>GUICHÊ/MATRÍCULA: {{ guiche }} - {{ matricula }}</p>
+                    <p>SERVIDOR: {{ servidor }}</p>
+                  </div>
+                  <div class="form-row col-md-12">
+                    <div class="form-group col-md-6">
+                        <label for="nota">Avaliar:</label>
+                        <select class="form-control" id="nota" name="nota" formControlName="nota">
+                          <option value="" selected>Escolha uma opção</option>
+                          <option value="Regular">Regular</option>
+                          <option value="Bom">Bom</option>
+                          <option value="Muito Bom">Muito Bom</option>
+                          <option value="Ótimo">Ótimo</option>
+                          <option value="Excelente">Excelente</option>
+                        </select>
+                      </div>
+                  </div>
+                    <div class="col-md-12 mt-1">
+                      <button class="btn btn-success" *ngIf="btnAvaliar" (click)="avaliar()" [disabled]="!avaliacaoForm.valid">AVALIAR</button>
+                    </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

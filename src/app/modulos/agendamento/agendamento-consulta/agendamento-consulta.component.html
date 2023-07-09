@@ -1,0 +1,103 @@
+<div class="border-top">
+<nav class="mt-2">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+    <li class="breadcrumb-item active">Listagem</li>
+  </ol>
+</nav>
+<div class="row mb-1">
+  <div class="col-md-12">
+    <h1 class="h4 border-left">
+      Conferência e Cancelamento de Agendamento
+    </h1>
+  </div>
+</div>
+<div id="tbsd" class="table-responsive mb-2" *ngIf="agendamentos">
+  <table class="table table-hover">
+    <thead>
+      <tr class="bg-success text-light">
+        <th>Dia</th>
+        <th>Horário</th>
+        <th>Senha</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let agendamento of agendamentos">
+        <td>{{ agendamento.grade.calendario.dia | date: "dd/MM/yy"}}</td>
+        <td>{{ agendamento.horario }}</td>
+        <td>{{ agendamento.senha }}</td>
+        <td>
+          <button type="button" class="btn btn-outline-info btn-sm" (click)="detalhar(agendamento.id)" data-toggle="modal" data-target=".bd-example-modal-lg">
+            <i class="fas fa-list-alt"></i>&nbsp;Detalhar
+          </button>
+          <button type="button" class="btn btn-outline-danger btn-sm" (click)="pegarDados(agendamento.id, agendamento.grade.calendario.dia, agendamento.senha)" data-toggle="modal" data-target="#exampleModal">
+            <i class="fas fa-trash-alt"></i>&nbsp;Cancelar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title">Consulta do Agendamento</h5>
+          <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </a>
+      </div>
+      <div class="modal-body">
+        <div class="apr">
+          <h6 style="color: blue; font-weight: bold;">IDENTIFICADOR</h6>
+          <h3>{{ identificador }}</h3>
+        </div>
+        <div class="apr">
+          <h6 style="color: blue; font-weight: bold;">SENHA</h6>
+          <h3>{{ senha }}</h3>
+        </div>
+        <div class="apr">
+            <h6 style="color: blue; font-weight: bold;">IDENTIFICAÇÃO</h6>
+            <p>Olá, {{ nome | uppercase }}</p>
+            <p>seu CPF ou CNPJ é {{ cpfCnpj }}.</p>
+        </div>
+        <div class="apr">
+          <h6 style="color: blue; font-weight: bold;">AGENDAMENTO</h6>
+          <p>Dia: {{ dia }}</p>
+          <p>Horário: {{ horario }}</p>
+          <p>Serviço: {{ servico }}</p>
+          <p>Detalhamento: {{ detalhamento }}</p>
+          <p>Unidade: {{ unidade }}</p>
+          <p>Unidade: {{ end }}</p>
+          <p>Status do Agendamento: {{ statusAgendamento }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmar Cancelamento de Agendamento?</h5>
+        <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </a>
+      </div>
+      <div class="modal-body">
+         Cancelar agendamento para o dia: {{ diaCancelamento | date: "dd/MM/yyyy"}}, Senha: {{ senhaCancelamento }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          <i class="fas fa-window-close"></i>&nbsp;Fechar
+        </button>
+        <button type="button" class="btn btn-success" (click)="cancelar()">
+          <i class="far fa-calendar-times"></i>&nbsp;
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

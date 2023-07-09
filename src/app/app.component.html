@@ -1,0 +1,63 @@
+<div>
+    <header class="text-white d-flex" style="box-shadow: 1px 1px 1px #000;">
+            <div class="d-flex align-items-center col-12" style="font-size: 14pt; font-weight: bold;">
+            <img src="assets/at.jpg" id="logo" style="height: 60px; width: 60px; margin-left: -10px; border-radius: 100%;" alt="AtendeTec"/>
+              <div class="col-md-6">
+                  <span style="color: red;">ATENDE</span><span style="color: black;">TEC</span>
+                </div>
+                <nav class="d-flex justify-content-end col-md-5">
+                  <span style="color: red;">KEN</span><span style="color: black;">TEC</span>
+                </nav>
+            </div>
+     </header>
+    <div style="min-height: 822px">
+      <section>
+            <div>
+                <main>
+                  <div class="container mt-3">
+                    <div class="d-flex justify-content-center mt-2">
+                      <div class="col-md-12 alert alert-warning" role="alert">
+                        <p style="text-align: center; font-size: 10pt; font-weight: bold;">
+                          Conforme os protocolos de segurança contra o COVID-19 é permitida somente para quem irá usufruir do atendimento.
+                          Não será permitida a entrada de acompanhantes (exceto para menores de idade, idosos ou pessoas com alguma necessidade comprovada de acompanhamento).
+                        </p>
+                        <p style="text-align: center; font-size: 10pt; font-weight: bold;">
+                          Para realizar um agendamento, clicar em ACESSE AQUI. Para novo cadastro, clicar em FAÇA SEU CADASTRO.
+                          Ler atentamente as informações para o AGENDAMENTO, marcar a opção que confirma que os requisitos foram lidos, dados confirmados e clicar em CONFIRMAR AGENDAMENTO.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                    <h1 class="h5 mt-3 col-md-12" style="text-align: center;">
+                      ATENDETEC
+                      </h1>
+                    <h5 class="text-center col-md-12">Sistema para Agendamento WEB</h5>
+
+                    <div class="container">
+                      <div class="mt-3">
+                        <button type="button" class="btn-lg btn-block btn btn-success" routerLink="/login">
+                          <i class="fas fa-door-open"></i>&#160; ACESSE AQUI!
+                        </button>
+                      </div>
+                      <div class="mt-3">
+                        <button type="button" class="btn-lg btn-block btn btn-primary" routerLink="/usuario">
+                          <i class="fas fa-address-card"></i>&#160; FAÇA SEU CADASTRO
+                        </button>
+                    </div>
+                    </div>
+                    <div class="container mt-4">
+                      <router-outlet></router-outlet>
+                    </div>
+                </main>
+            </div>
+        </section>
+      </div>
+      <div>
+        <footer class="text-white d-flex justify-content-center align-items-center" style="height: 50px; box-shadow: 1px 1px 2px #000;">
+              <div style="font-size: 10pt; font-weight: bold;">
+                Desenvolvido por KENTEC - 2021.
+                </div>
+        </footer>
+      </div>
+    </div>
+

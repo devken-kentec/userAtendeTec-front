@@ -1,0 +1,158 @@
+<div class="border-top">
+    <nav class="mt-2">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item"><a routerLink="/agendamento">Listagem</a></li>
+        <li class="breadcrumb-item active">Finalização</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <button type="button" routerLink="/" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="agendForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+            Continuando o Agendamento
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <label style="color: green; font-weight: bold; font-size: 12pt;">DADOS PESSOAIS</label>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="col-md-2">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Identificador:&#160;</label><span>{{ id }}</span>
+            </div>
+            <div class="col-md-4">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Nome:&#160;</label><span>{{ nome }}</span>
+            </div>
+            <div class="col-md-3">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">CPF/CNPJ:&#160;</label><span>{{ globalService.formatarPessoas(cpfCnpj) }}</span>
+            </div>
+            <div class="col-md-3">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Telefone:&#160;</label><span>{{ telefone }}</span>
+            </div>
+          </div>
+          <div class="form-row col-md-12 border-bottom">
+            <div class="col-md-6">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Email:&#160;</label><span>{{ email }}</span>
+            </div>
+          </div>
+          <div class="form-row col-md-12">
+            <label style="color: green; font-weight: bold; font-size: 12pt;">DADOS DO AGENDAMENTO</label>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="col-md-2">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Identificador:&#160;</label><span>{{ id_agendamento }}</span>
+            </div>
+            <div class="col-md-4">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Unidade:&#160;</label><span>{{ unidade }}</span>
+            </div>
+            <div class="col-md-3">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Data:&#160;</label><span>{{ data | date: "dd/MM/yyyy" }}</span>
+            </div>
+            <div class="col-md-3">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Horário:&#160;</label><span>{{ horario }}</span>
+            </div>
+          </div>
+          <div class="form-row col-md-12 border-bottom">
+            <div class="col-md-3">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Especifíco para:&#160;</label><span>{{ especifico }}</span>
+            </div>
+            <div class="col-md-5">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Status de agendamento:&#160;</label><span>{{ status }}</span>
+            </div>
+          </div>
+          <div class="form-row col-md-12 mt-3">
+			<label style="color: green; font-weight: bold; font-size: 12pt;">* INFORMAÇÕES IMPORTANTES PARA AGENDAMENTO</label><br/>
+				<div class="form-row col-md-12">
+          <div class="ml-3">
+            <div style="font-weight: bold; font-size: 10pt;">
+              <span style="color: black;">
+                1) O atendimento será apenas para o nome e CPF agendado e não serão aceitos dados fictícios ou incompletos. Não será permitido agendamento em nome de terceiros.
+              </span><br/><br/>
+              <span style="color: black;">
+                *Para menores de idade sem CPF poderá ser realizado cadastro no nome do responsável, devendo ser comprovado vínculo no momento do atendimento.
+              </span><br/><br/>
+              <span style="color: red;">
+                2) Caso não seja possível comparecer ao horário agendado, efetuar com antecedência o cancelamento do agendamento. No caso de não comparecimento ao atendimento agendado, somente será possível agendar outro atendimento após 10 dias.
+              </span><br/><br/>
+              <span  style="color: red;">
+                3) Em casos de atrasos será necessário efetuar outro agendamento após 10 dias. Se possível, comparecer à Unidade 5 a 10 minutos antes do horário agendado para que seja iniciada a conferência da documentação
+              </span><br/><br/>
+              <span style="color: black;">
+                4) Somente haverá atendimento para os serviços descritos e com documentação completa. <span style="color: red;">Todos os documentos devem ser legíveis e sem rasuras. Havendo comparecimento ao local de atendimento com documentação incompleta ou incorreta, somente será possível agendar outro atendimento após  10 dias.</span>
+              </span><br/><br/>
+              <span style="color: black;">
+                5) Somente será permitida  a realização de cinco serviços por agendamento.
+              </span><br/><br/>
+              <span style="color: black;">
+                6) Informar email e telefones válidos. Caso as informações estejam incorretas, não há possibilidade de entrarmos em contato se necessário.
+              </span><br/>
+              <br/>
+            </div>
+              <div class="form-check mt-2" style="font-weight: bold;">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="aceite">
+                <label class="form-check-label" for="exampleCheck1" style="color: black;">De acordo(Conferi meus dados, do agendamento e li as informações para o agendamento!)</label>
+              </div>
+              <br/>
+          </div>
+				</div>
+			</div>
+         <div class="col-md-12">
+                <button type="button"
+                        class="btn btn-success"
+                        data-toggle="modal"
+                        *ngIf="btn"
+                        data-target="#exampleModal"
+                        [disabled]="!agendForm.valid">
+                    <i class="fas fa-list-ol"></i>&#160;Confirmar Agendamento
+                </button>
+                <button type="button"
+                        class="btn btn-warning"
+                        *ngIf="!btn"
+                        data-toggle="modal"
+                        (click)="imprimir(id_agendamento)"
+                        data-target="#exampleModal2" >
+                    <i class="fas fa-list-ol"></i>&#160;Imprimir recibo
+                </button>
+        </div>
+        </div>
+      </div>
+    </form>
+    <div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                <h6 class="modal-title"> &#10004; &#160;<strong style="color: blue;">Chegamos ao Final!</strong></h6>
+            </h5>
+            <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </a>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <div >
+                            <strong id="resNome" style="color: Green;"><span>{{ nome }},</span></strong>
+                                Confira com atenção os dados abaixo, e envie seu agendamento!
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center" style="color: red; font-weight: bold;">Dica! Imprima seu recibo apos enviar !</div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-window-close"></i>&nbsp;Fechar</button>
+            <button type="button" *ngIf="btn" class="btn btn-success" (click)="enviar()"><i class="fas fa-paper-plane"></i>&#160;Enviar</button>
+            </div>
+      </div>
+  </div>
+</div>
+

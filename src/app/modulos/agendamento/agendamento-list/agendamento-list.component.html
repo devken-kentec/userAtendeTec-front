@@ -1,0 +1,147 @@
+<div class="border-top">
+    <nav class="mt-2">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/">Início</a></li>
+        <li class="breadcrumb-item active">Agendamento</li>
+      </ol>
+    </nav>
+    <div class="row mb-4">
+      <div class="col-md">
+        <button type="button" (click)="consultar()" class="btn btn-info">
+          <i class="fas fa-search"></i>&nbsp;Consultar
+        </button>
+        <button type="button" (click)="avaliar()" class="btn btn-success">
+          <i class="far fa-thumbs-up"></i>&nbsp;Avaliar&nbsp;<span class="badge badge-light">{{ cont }}</span>
+        </button>
+        <button type="button" routerLink="/" class="btn btn-warning float-right">
+          <i class="fas fa-backward"></i>&nbsp;Voltar
+        </button>
+      </div>
+    </div>
+    <form class="needs-validation" novalidate [formGroup]="agendForm">
+      <div class="card" style="box-shadow: 5px 5px 10px #000;">
+        <div class="card-header">
+            Mostrar Agenda
+        </div>
+        <div class="card-body">
+          <div class="form-row col-md-12">
+            <label style="color: green; font-weight: bold; font-size: 12pt;">DADOS PESSOAIS</label>
+          </div>
+          <div class="form-row col-md-12">
+            <div class="col-md-2">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Identificador:&#160;</label><span>{{ id }}</span>
+            </div>
+            <div class="col-md-4">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Nome:&#160;</label><span>{{ nome }}</span>
+            </div>
+            <div class="col-md-3">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">CPF/CNPJ:&#160;</label><span>{{ globalService.formatarPessoas(cpfCnpj) }}</span>
+            </div>
+            <div class="col-md-3">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Telefone:&#160;</label><span>{{ telefone }}</span>
+            </div>
+          </div>
+          <div class="form-row col-md-12 border-bottom">
+            <div class="col-md-12">
+                <label style="color: blue; font-weight: bold; font-size: 12pt;">Email:&#160;</label><span>{{ email }}</span>
+            </div>
+          </div>
+      <div class="form-row col-md-12 mt-3">
+			<label style="color: green; font-weight: bold; font-size: 12pt;">ESCOLHA O DIA E A UNIDADE DE SUA PREFERÊNCIA</label><br/>
+				<div class="form-row col-md-12">
+            <div class="form-group col-md-3" >
+                <label for="calendario">Calendário:</label>
+                <select  class="form-control" id="calendario" formControlName="calendario">
+                  <option value="" selected>Escolha o dia</option>
+                  <option *ngFor="let calendario of calendarios" [value]="calendario.dia">{{globalService.formatarDate(calendario.dia)}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="unidade">Unidades:</label>
+                <select  class="form-control" id="unidade" formControlName="unidade">
+                  <option value="" selected>Escolha a unidade</option>
+                  <option *ngFor="let unidade of unidades" [value]="unidade.descricao">{{unidade.descricao}}</option>
+                </select>
+            </div>
+				</div>
+			</div>
+         <div *ngIf="btnAgendar" class="col-md-12">
+            <button type="button" (click)="verAgenda()" class="btn btn-success mt-4" [disabled]="!agendForm.valid" data-toggle="modal" data-target=".bd-example-modal-lg">
+                <i class="fas fa-list-ol"></i>&#160;Mostrar vagas
+            </button>
+        </div>
+          <div *ngIf="!btnAgendar" class="col-md-7 alert alert-warning" role="alert">
+            <p style="text-align: center; font-size: 12pt; font-weight: bold;">
+              PARA LIBERAR AS VAGAS, REALIZE AS AVALIAÇÕES!
+            </p>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div>
+    </div>
+  </div>
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Lista de Vagas de Agendamento.</h5>
+            <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </a>
+        </div>
+        <div class="modal-body">
+          <div class="alert alert-success col-md-12" role="alert">
+            <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="false" aria-controls="collapseExample">
+              INFORMAÇÕES SOBRE AS VAGAS!
+            </button>
+            <div class="collapse mt-2" id="collapseInfo">
+              <div class="card card-body" style="box-shadow: 5px 5px 10px #000;">
+                <div style="color: black; margin-left: 5px;">
+                  <span style="font-weight: bold;">Óla &#160;<span style="color: blue;">{{nome}},</span>&#160;tudo bem?</span>
+                  <br/><br/>
+                  <span style="font-weight: bolder;">
+                    <p><u>Temos algumas informações para voçê!</u></p>
+                    <p>Percorra toda lista e veja o horário, a unidade e o serviço que atenda sua necessidade.</p>
+                    <p>Serviço GRL e um tipo de serviço generico ou geral, contem todos os serviços do atende fácil em um único lugar.</p>
+                    <p>Caso seja um serviço específico procure por toda lista que irá encontrar.</p>
+                    <p>Em caso de dúvida consulta as unidades de atendimento Atende Fácil.</p>
+                    <p>A equipe Atende Fácil agradeçe!</p>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div id="tbsd" class="table-responsive" *ngIf="agendamentos">
+                <table class="table table-hover">
+                  <thead>
+                    <tr class="bg-success text-light">
+                      <th>ID</th>
+                      <th>Data é Horário</th>
+                      <th>Senha</th>
+                      <th>Unidade</th>
+                      <th>Serviço</th>
+                      <th>Ações</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let agendamento of agendamentos">
+                      <td><strong>{{ agendamento.id }}</strong></td>
+                      <td><span style="color: blue; font-weight: bold;">{{ globalService.formatarDate(agendamento.grade.calendario.dia) }}</span>  - <span style="font-weight: bold;">{{ agendamento.horario }}</span> </td>
+                      <td>{{ agendamento.senha }}</td>
+                      <td>{{ agendamento.grade.unidade.descricao }}</td>
+                      <td>{{ agendamento.grade.servico.sigla }}</td>
+                      <td>
+                        <button type="button" class="btn btn-outline-info btn-sm" (click)="agendar(agendamento.id)" data-dismiss="modal" aria-label="Close">
+                            Agendar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
